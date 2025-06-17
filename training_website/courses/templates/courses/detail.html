@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<p>{{ object.description }}</p>
+<p>Категория: {{ object.category }}</p>
+<p>Преподаватели: {% for teacher in object.teachers.all %}<strong>{{ teacher }}</strong>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+<a href="{% url 'courses:update' pk=object.pk %}">Редактировать</a>
+<a href="{% url 'courses:delete' pk=object.pk %}">Удалить</a>
+{% endblock %}

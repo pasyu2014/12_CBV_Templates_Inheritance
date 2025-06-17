@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Список курсов{% endblock %}
+
+{% block content %}
+<h1>Список курсов:</h1>
+<ul>
+    {% for course in object_list %}
+        <li><a href="{% url 'courses:detail' pk=course.pk %}">{{ course.title }}</a></li>
+    {% empty %}
+        <p>Курсов пока нет.</p>
+    {% endfor %}
+</ul>
+
+<!-- Пагинация -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая страница</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующая страница</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
